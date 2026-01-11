@@ -1,0 +1,264 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOXVK6ADEWt9IQHhFfeIIp8",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Damib12/HW2/blob/main/Hw3_vitamine.html\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "gWq1xLMdGTPb",
+        "outputId": "62fc7637-8f9d-4f93-ab00-2a1b8a05653a"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pulp in /usr/local/lib/python3.12/dist-packages (3.3.0)\n"
+          ]
+        }
+      ],
+      "source": [
+        "!pip install pulp\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from pulp import LpProblem, LpVariable, LpMinimize, value\n"
+      ],
+      "metadata": {
+        "id": "cA-52-hZGgHl"
+      },
+      "execution_count": 2,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model = LpProblem(\"Vitamin_Supplements\", LpMinimize)\n"
+      ],
+      "metadata": {
+        "id": "7RawIczKGizy"
+      },
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "SV = LpVariable(\"SuperVit\", lowBound=0)\n",
+        "NH = LpVariable(\"NewHealth\", lowBound=0)\n"
+      ],
+      "metadata": {
+        "id": "J3O5a42FGl_n"
+      },
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 0.2 * SV + 0.3 * NH\n"
+      ],
+      "metadata": {
+        "id": "GbofinGRGnTq"
+      },
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Vitamin C"
+      ],
+      "metadata": {
+        "id": "-4Nij32cGyG0"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 20*SV + 30*NH >= 60\n"
+      ],
+      "metadata": {
+        "id": "QnMuA8TQGpti"
+      },
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Calcium"
+      ],
+      "metadata": {
+        "id": "HwobfCU1G2bp"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 500*SV + 250*NH >= 1000\n"
+      ],
+      "metadata": {
+        "id": "Dl5nhFlpG0-b"
+      },
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Iron"
+      ],
+      "metadata": {
+        "id": "0f0Zf_HUG78X"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 9*SV + 2*NH >= 18\n"
+      ],
+      "metadata": {
+        "id": "zkHA0Y8TG7Q4"
+      },
+      "execution_count": 8,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Niacin"
+      ],
+      "metadata": {
+        "id": "KPtvD3mLG7CX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 2*SV + 10*NH >= 20\n"
+      ],
+      "metadata": {
+        "id": "pEmvHEeVHFH9"
+      },
+      "execution_count": 9,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Magnesium"
+      ],
+      "metadata": {
+        "id": "3d3u3wELHI3o"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model += 60*SV + 90*NH >= 360\n"
+      ],
+      "metadata": {
+        "id": "WlD5-IG1HMWF"
+      },
+      "execution_count": 10,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "model.solve()\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "U8fn1QF5HU_b",
+        "outputId": "69dff92f-7c99-4050-a825-b0a210fc0eb6"
+      },
+      "execution_count": 11,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "1"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 11
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(\"SuperVit tablets:\", SV.varValue)\n",
+        "print(\"NewHealth tablets:\", NH.varValue)\n",
+        "print(\"Minimum daily cost: $\", value(model.objective))\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "vW1_B7D3HbB_",
+        "outputId": "3318c119-473f-4474-9309-5807cd779e47"
+      },
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "SuperVit tablets: 1.3043478\n",
+            "NewHealth tablets: 3.1304348\n",
+            "Minimum daily cost: $ 1.2\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Interpretation of Results\n",
+        "\n",
+        "The optimal solution minimizes the daily cost of vitamin supplements while meeting all nutritional requirements.\n",
+        "The model suggests purchasing approximately 1.30 SuperVit tablets and 3.13 NewHealth tablets per day.\n",
+        "This combination satisfies all nutrient constraints at the minimum possible cost of $1.20 per day.\n"
+      ],
+      "metadata": {
+        "id": "VuJBfLbnLYYV"
+      }
+    }
+  ]
+}
